@@ -33,14 +33,13 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  private
+  private  
   def user_params
     params.require(:user).permit(:name, :email, :password,
-      :password_confirmation, :email_confirmation)
+      :password_confirmation, :email_confirmation, :remember_token)
   end
 
   def admin_user
     redirect_to root_url unless current_user.admin == 1
   end
-  
 end
