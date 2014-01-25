@@ -1,3 +1,4 @@
+User.create(name: "Admin", email: "admin@example.com", password: "abc123", password_confirmation: "abc123", admin: 1)
 (1..100).each do |i| 
   User.create(name: "User#{i}", email: "user#{i}@example.com", password: "abc123", password_confirmation: "abc123")
 end
