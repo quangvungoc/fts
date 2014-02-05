@@ -35,6 +35,10 @@ module SessionsHelper
       redirect_to signin_url, notice: "Please sign in."
     end
   end
+  
+  def admin_user?
+    current_user.admin == 1
+  end
 
   def sign_out
     params = {remember_token: User.encrypt(User.new_remember_token)}
