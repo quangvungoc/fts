@@ -3,7 +3,6 @@ class CreateAnswerSheets < ActiveRecord::Migration
     create_table :answer_sheets do |t|
       t.integer :user_id
       t.integer :exam_id
-      t.text :answers
       t.datetime :start_time
       t.datetime :end_time
 

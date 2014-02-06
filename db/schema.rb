@@ -11,31 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124104321) do
+ActiveRecord::Schema.define(version: 20140206032840) do
+
+  create_table "answer_sheet_details", force: true do |t|
+    t.integer "answer_sheet_id"
+    t.integer "question_id"
+    t.text    "answer"
+  end
 
   create_table "answer_sheets", force: true do |t|
     t.integer  "user_id"
     t.integer  "exam_id"
-    t.text     "answers"
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "answers", force: true do |t|
+    t.integer "question_id"
+    t.text    "content"
+    t.integer "correct_answer", default: 0
+  end
+
   create_table "exams", force: true do |t|
     t.string   "name"
     t.string   "form"
     t.integer  "subject_id"
+    t.integer  "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "questions", force: true do |t|
     t.integer  "subject_id"
-    t.string   "type",       limit: 1
+    t.string   "question_type", limit: 1
     t.text     "content"
-    t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

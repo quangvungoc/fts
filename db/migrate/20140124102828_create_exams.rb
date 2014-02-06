@@ -4,7 +4,8 @@ class CreateExams < ActiveRecord::Migration
       t.string :name
       t.string :form
       t.integer :subject_id
-
+      t.integer :duration
+      
       t.timestamps
     end
   end
