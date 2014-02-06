@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206032840) do
+ActiveRecord::Schema.define(version: 20140206085306) do
 
   create_table "answer_sheet_details", force: true do |t|
     t.integer "answer_sheet_id"
     t.integer "question_id"
     t.text    "answer"
   end
+
+  create_table "answer_sheet_questions", force: true do |t|
+    t.integer  "answer_sheet_id"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answer_sheet_questions", ["answer_sheet_id", "question_id"], name: "asq_index", unique: true
+  add_index "answer_sheet_questions", ["answer_sheet_id"], name: "index_answer_sheet_questions_on_answer_sheet_id"
 
   create_table "answer_sheets", force: true do |t|
     t.integer  "user_id"

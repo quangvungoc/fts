@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   attr_accessor :need_validate
+
+  has_many :answer_sheets, dependent: :destroy
   
   validates :name, 	presence: true, length: {maximum: 50}
   validates :email, presence: true, length: {maximum: 30},

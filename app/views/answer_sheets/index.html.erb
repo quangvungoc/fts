@@ -1,0 +1,4 @@
+<h1> All Exams </h1>
+<% @answer_sheets.each do |answer_sheet| %>
+  <h2> <%= answer_sheet.exam.name %> in <%= answer_sheet.exam.subject.name %> </h2>
+<% end %>

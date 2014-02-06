@@ -1,9 +1,18 @@
 Fts::Application.routes.draw do
-  resources :users
+
   resources :questions do
     resources :answers
   end
+
+  resources :users do
+    resources :answer_sheets
+  end
+  resources :answer_sheets, only: [:destroy, :edit, :show, :update]
   resources :sessions,  only: [:new, :create, :destroy]
+
+  resources :subjects do
+    resources :exams
+  end
 
   root  'static_pages#home'
   

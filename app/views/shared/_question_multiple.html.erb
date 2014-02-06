@@ -1,0 +1,7 @@
+<div>
+<%= question.content %>
+<br>
+<% answers.each do |answer| %>
+  <%= check_box_tag(:check_box, 1, answer.correct_answer == 1, :readonly => @readonly) %> <%= answer.content %> <br>
+<% end %>
+</div>
