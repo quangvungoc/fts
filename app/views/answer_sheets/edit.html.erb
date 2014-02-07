@@ -1,0 +1,74 @@
+<h1> Answer Sheet </h1>
+<h2> <%= @answer_sheet.exam.name %> in <%= @answer_sheet.exam.subject.name %> </h2>
+<h2> End time: <%= @answer_sheet.end_time.getlocal %> </h2>
+
+There are <%= @answer_sheet.questions.length %> questions.
+<%= form_for @answer_sheet do |f| %>
+  <ol class="questions">
+    <%= f.fields_for :answer_sheet_details do |builder| %>
+      <li> <%= builder.object.question.content %> </li>
+      <%= render partial: "questions/question_in_exam", 
+        :locals => {:builder => builder} %>
+    <% end %>
+  </ol>
+
+  <% if @answer_sheet.end_time > Time.now %>
+    <%= f.submit "Submit", class: "btn btn-large btn-primary", id: "__submit_answer_sheet" %>    
+  <% else %> 
+    Exam has already ended.
+  <% end %>
+<% end %>
+
+<div style="display:table;">
+  <div id="clock">
+    Time left:
+    <span id="__exam_time"></span>
+    <input id="__exam_time_value" type="hidden" value="<%= @answer_sheet.end_time-Time.now %>">
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+      if(Number($('#__exam_time_value').val()) > 0) {
+          var intervalId = setInterval(function(){
+              var exam_time = Number($('#__exam_time_value').val());
+              if(exam_time < 0) {
+                  clearInterval(intervalId);
+                  alert('Exam time has expired, your examination will be submitted automatically');
+                  $('#__submit_answer_sheet').click();
+                  return;
+              }
+              $('#__exam_time').html(exam_time_s(exam_time));
+              $('#__exam_time_value').val(exam_time - 1);
+          },1000);
+      }
+  });
+
+  function exam_time_s(exam_time) {
+    if (exam_time <= 0) {
+          return "00:00:00";
+    }
+    var day = parseInt(exam_time / (24 * 60 * 60));   //alert(day);
+    var hour = parseInt(exam_time / (60 * 60) % 24);       //alert(hour);
+    var minute = parseInt((exam_time / 60) % 60);          //alert(minute);
+    var second = parseInt(exam_time % 60);                   //alert(second);
+    var s = '';
+    if (day > 0) s = s + day + ' day ';
+    if (hour > 9)
+        s = s + hour;
+    else
+        s = s + '0' + hour;
+    s = s + ':';
+    if (minute > 9)
+        s = s + minute;
+    else
+        s = s + '0' + minute;
+    s = s + ':';
+    if (second > 9)
+        s = s + second;
+    else
+        s = s + '0' + second;
+    return s;
+  }
+</script>

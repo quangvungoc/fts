@@ -2,6 +2,6 @@
 <%= question.content %>
 <br>
 <% answers.each do |answer| %>
-  <%= radio_button_tag("choices" + answer.id.to_s, 1, answer.correct_answer == 1, :readonly => @readonly) %> <%= answer.content %> <br>
+  <%= radio_button_tag("choices" + answer.id.to_s, 1, answer_details.answer.to_i == answer.id, :readonly => @readonly) %> <%= answer.content %> <br>
 <% end %>
 </div>

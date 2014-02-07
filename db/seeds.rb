@@ -14,13 +14,13 @@ subject_list.each do |name|
   Subject.create(name: name)
 end
 
-Exam.create(subject_id: 1, name: "MySQL 1", form: "SSSSSSTTTEEE")
-Exam.create(subject_id: 1, name: "MySQL 2", form: "SSSSSSSSSSSS")
-Exam.create(subject_id: 1, name: "MySQL 3", form: "EEE")
-Exam.create(subject_id: 1, name: "MySQL 4", form: "SSSSSSTTTEEE")
-Exam.create(subject_id: 2, name: "Exam 2", form: "SSSTTTEEESSS")
-Exam.create(subject_id: 3, name: "Exam 3", form: "TTTEEESSSSSS")
-Exam.create(subject_id: 4, name: "Exam 4", form: "SSSTTTTSSSS")
+Exam.create(subject_id: 1, name: "MySQL 1", form: "SSSSSSTTTEEE", duration: 20)
+Exam.create(subject_id: 1, name: "MySQL 2", form: "SSSSSSSSSSSS", duration: 20)
+Exam.create(subject_id: 1, name: "MySQL 3", form: "EEE", duration: 60)
+Exam.create(subject_id: 1, name: "MySQL 4", form: "SSSSSSTTTEEE", duration: 50)
+Exam.create(subject_id: 2, name: "Exam 2", form: "SSSTTTEEESSS", duration: 20)
+Exam.create(subject_id: 3, name: "Exam 3", form: "TTTEEESSSSSS", duration: 20)
+Exam.create(subject_id: 4, name: "Exam 4", form: "SSSTTTTSSSS", duration: 20)
 
 
 sample_text = %w(hi hello bye ohayou konnichiha konbanha arigatou goodnight goodmorning sayounara nippon english england vietnam vietnamese taiyo tsuki hi mizu moku kin go)
@@ -68,7 +68,7 @@ end
 
 (1..20).each do |i|
   user_id = User.find(i).id
-  exam_id = i/5
+  exam_id = i%4+1
   AnswerSheet.create(user_id: user_id, exam_id: exam_id)
 end
 =end
