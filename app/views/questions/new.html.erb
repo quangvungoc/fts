@@ -1,0 +1,43 @@
+<h1>New Question</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @question do |f| %>
+      <%= render 'question_fields', f: f%>
+      Answer:
+      <div id="answer_area_for_choice_questions">
+        <%= f.fields_for :answers, [Answer.new,Answer.new,Answer.new,Answer.new] do |builder| %>
+          <%= builder.text_field :content %>
+          <%= builder.radio_button :correct_answer, 1 %> correct answer
+        <% end %>
+      </div>
+      <div id="answer_area_for_text_questions" style="display: none">
+        <%= f.fields_for :answers, [Answer.new] do |builder| %>
+          <%= builder.text_area :content %>
+          <%= builder.hidden_field :correct_answer, { value: 1} %>
+        <% end %>
+      </div>
+      <div id="answer_area_for_text_questions">
+
+      <div>
+      <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+<script>
+  $('#new_question input[type="radio"]').each(function(){
+  	$(this).click(function() {
+  		on_click_correct_answer();
+  		$(this).prop("checked", true);
+  	});
+  });
+
+  $('#question_question_type').click(function(){
+    onChangeType();
+  });
+  
+  function on_click_correct_answer() {
+  	$('#new_question input[type="radio"]').each(function(){
+  		$(this).removeAttr("checked");
+  	});
+  }
+</script>

@@ -3,18 +3,19 @@ User.create(name: "Admin", email: "admin@example.com", password: "abc123", passw
   User.create(name: "User#{i}", email: "user#{i}@example.com", password: "abc123", password_confirmation: "abc123")
 end
 
-#TODO 
-=begin
 subject_list = [
   "MySQL",
   "MySQL Exercise",
   "Ruby on Rails",
   "Git"
 ]
+
 subject_list.each do |name|
   Subject.create(name: name)
 end
 
+#TODO 
+=begin
 sample_text = %w(hi hello bye ohayou konnichiwa konbanwa arigatou goodnight goodmorning sayounara nippon english england vietnam vietnamese)
 type = "T"
 (1..100).each do |i|
