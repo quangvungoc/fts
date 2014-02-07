@@ -8,7 +8,7 @@ module QuestionsHelper
     when "T" then
       "Text"
     when "E" then
-      "End"
+      "Excercise"
     else 
       "Type not exist"
     end
