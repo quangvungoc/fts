@@ -8,7 +8,9 @@ class AnswerSheet < ActiveRecord::Base
   has_many :answer_sheet_questions, dependent: :destroy 
   has_many :questions, through: :answer_sheet_questions
 
-  after_create :generate_questions
+  after_create :generate_questions, :generate_answer_sheet_details
+
+  accepts_nested_attributes_for :answer_sheet_details
 
   private
   def generate_questions
@@ -19,8 +21,14 @@ class AnswerSheet < ActiveRecord::Base
     form = self.exam.form
     form.each_char do |t|
       index = Random.rand(questions[t].length)
-      AnswerSheetQuestion.create(answer_sheet_id: self.id, question_id: questions[t][index].id)
+      AnswerSheetQuestion.create answer_sheet_id: self.id, question_id: questions[t][index].id
       questions[t].delete_at(index)
+    end
+  end
+
+  def generate_answer_sheet_details
+    self.questions.each do |question|
+      AnswerSheetDetail.create question_id: question.id, answer_sheet_id: self.id
     end
   end
 end
