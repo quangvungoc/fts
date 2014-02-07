@@ -1,0 +1,17 @@
+<h1><%= @subject.name %></h1>
+
+<h3> Related questions </h3>
+
+<ol>
+<% @subject.questions.each do |question| %>
+  <li>
+  	<%= question.content %><br>
+  	<h6>
+  	  Type: 
+  	  <%= getTypeName(question.question_type) %>
+  	  <%= link_to "edit", '#' %>
+  	  <%= link_to "delete", question, method: :delete, data: {confirm: "You sure?"} %>
+  	</h6>
+  </li>
+<% end %>
+</ol>

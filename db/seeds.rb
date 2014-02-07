@@ -27,7 +27,7 @@ sample_text = %w(hi hello bye ohayou konnichiha konbanha arigatou goodnight good
 
 type = "T"
 (1..50).each do |i|
-  subject_id = i/25 # 1~4
+  subject_id = i%4+1
   content = sample_text.shuffle[0..9].join(" ")
   question_id = Question.create(subject_id: subject_id, question_type: type, content: content).id
   answer = sample_text.shuffle[0..5].join(" ")
@@ -37,7 +37,7 @@ end
 type = "S"
 correct = [1,0,0,0]
 (1..50).each do |i|
-  subject_id = i/25 # 1~4
+  subject_id = i%4+1
   content = sample_text.shuffle[0..5].join(" ")
   question_id = Question.create(subject_id: subject_id, question_type: type, content: content).id
   answer = []
@@ -55,7 +55,7 @@ end
 
 type = "E"
 (1..20).each do |i|
-  subject_id = i/5
+  subject_id = i%4+1
   content = sample_text.shuffle[0..15].join(" ")
   question_id = Question.create(subject_id: subject_id, question_type: type, content: content).id
   answer = sample_text.shuffle[0..10].join(" ")
