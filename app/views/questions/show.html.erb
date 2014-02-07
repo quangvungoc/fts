@@ -1,0 +1,21 @@
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>Question Detail</h1>
+      <h4>Subject:</h4>
+      <%= @question.subject.name %>
+      <h4>Type:</h4>
+      <%= getTypeName @question.question_type %>
+      <h4>Content: </h4>
+      <%= @question.content %>
+      <h4>Answer(s): </h4>
+      <% @question.answers.each do |answer| %>
+        <%= answer.content %>
+        <% if @question.question_type == "S" && correct?(answer) %>
+          * correct answer
+        <% end %>
+        <br>
+      <% end %>
+    </section>
+  </aside>
+</div>
