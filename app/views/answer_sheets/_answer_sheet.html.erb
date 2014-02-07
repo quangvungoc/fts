@@ -1,0 +1,12 @@
+<li>
+  <span class="subject_name"><%= answer_sheet.exam.subject.name %>.</span>
+  <span class="exam_name"> Exam: <%= answer_sheet.exam.name %></span>
+  <span class="timestamp">
+    Time started <%= answer_sheet.created_at %>.
+  </span>
+  <% if answer_sheet.start_time.nil? %> 
+    <%= link_to "Start", edit_user_answer_sheet_path(current_user, answer_sheet) %>
+  <% else %>
+    <%= link_to "View", answer_sheet %>
+  <% end %>
+</li>

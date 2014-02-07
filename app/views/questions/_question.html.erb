@@ -1,0 +1,15 @@
+<li>
+  <% case question.question_type %>
+  <% when "T" then %>
+    <%= render partial: "shared/question_text", :locals => {:question => question, :answer_details => answer_details} %>
+  <% when "S" then %>
+    <%= render partial: "shared/question_single", 
+      :locals => {:question => question, :answer_details => answer_details, :answers => answers} %>
+  <% when "M" then %>
+    <%= render partial: "shared/question_multiple", :locals => 
+      {:question => question, :answer_details => answer_details, :answers => answers} %>
+  <% when "E" then %>
+    <%= render partial: "shared/question_exercise", :locals => {:question => question, :answer_details => answer_details} %>
+  <% else "Something wrong!!!" %>
+  <% end %>
+</li>

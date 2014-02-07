@@ -1,5 +1,5 @@
 User.create(name: "Admin", email: "admin@example.com", password: "abc123", password_confirmation: "abc123", admin: 1)
-(1..100).each do |i| 
+(1..40).each do |i| 
   User.create(name: "User#{i}", email: "user#{i}@example.com", password: "abc123", password_confirmation: "abc123")
 end
 
@@ -14,51 +14,57 @@ subject_list.each do |name|
   Subject.create(name: name)
 end
 
-#TODO 
-=begin
-sample_text = %w(hi hello bye ohayou konnichiwa konbanwa arigatou goodnight goodmorning sayounara nippon english england vietnam vietnamese)
+Exam.create(subject_id: 1, name: "MySQL 1", form: "SSSSSSTTTEEE")
+Exam.create(subject_id: 1, name: "MySQL 2", form: "SSSSSSSSSSSS")
+Exam.create(subject_id: 1, name: "MySQL 3", form: "EEE")
+Exam.create(subject_id: 1, name: "MySQL 4", form: "SSSSSSTTTEEE")
+Exam.create(subject_id: 2, name: "Exam 2", form: "SSSTTTEEESSS")
+Exam.create(subject_id: 3, name: "Exam 3", form: "TTTEEESSSSSS")
+Exam.create(subject_id: 4, name: "Exam 4", form: "SSSTTTTSSSS")
+
+
+sample_text = %w(hi hello bye ohayou konnichiha konbanha arigatou goodnight goodmorning sayounara nippon english england vietnam vietnamese taiyo tsuki hi mizu moku kin go)
+
 type = "T"
-(1..100).each do |i|
+(1..50).each do |i|
   subject_id = i/25 # 1~4
-  content = sample_text.shuffle[0..5].join(" ")
-  answer = content.reverse
-  Question.create(subject_id: subject_id, type: type, content: content, answer: answer)
+  content = sample_text.shuffle[0..9].join(" ")
+  question_id = Question.create(subject_id: subject_id, question_type: type, content: content).id
+  answer = sample_text.shuffle[0..5].join(" ")
+  Answer.create(question_id: question_id, content: answer, correct_answer: 1)
 end
 
 type = "S"
-separator = "[|]"
-model_answer = %w(0 0 0 1)
-(1..100).each do |i|
+correct = [1,0,0,0]
+(1..50).each do |i|
   subject_id = i/25 # 1~4
   content = sample_text.shuffle[0..5].join(" ")
-  content << separator << sample_text.shuffle[0..3].join(separator)
-  answer = model_answer.shuffle.join()
-  Question.create(subject_id: subject_id, type: type, content: content, answer: answer)
-end
+  question_id = Question.create(subject_id: subject_id, question_type: type, content: content).id
+  answer = []
+  answer[0] = sample_text.shuffle[0..3].join(" ")
+  answer[1] = sample_text.shuffle[0..3].join(" ")
+  answer[2] = sample_text.shuffle[0..3].join(" ")
+  answer[3] = sample_text.shuffle[0..3].join(" ")
 
-type = "M"
-separator = "[|]"
-model_answer = %w(0 1 0 1)
-(1..100).each do |i|
-  subject_id = i/25 # 1~4
-  content = sample_text.shuffle[0..5].join(" ")
-  content << separator << sample_text.shuffle[0..3].join(separator)
-  answer = model_answer.shuffle.join()
-  Question.create(subject_id: subject_id, type: type, content: content, answer: answer)
+  correct.shuffle!
+
+  answer.zip(correct).each do |a,c|
+    Answer.create(question_id: question_id, content: a, correct_answer: c)
+  end
 end
 
 type = "E"
 (1..20).each do |i|
   subject_id = i/5
-  content = sample_text.shuffle[0..9].join(" ")
-  answer = "No sample answer"
-  Question.create(subject_id: subject_id, type: type, content: content, answer: answer)
+  content = sample_text.shuffle[0..15].join(" ")
+  question_id = Question.create(subject_id: subject_id, question_type: type, content: content).id
+  answer = sample_text.shuffle[0..10].join(" ")
+  Answer.create(question_id: question_id, content: answer, correct_answer: 1)
 end
 
-Exam.create(subject_id: 1, name: "Exam 1", form: "MMMSSSTTTEEE")
-Exam.create(subject_id: 2, name: "Exam 2", form: "SSSTTTEEEMMM")
-Exam.create(subject_id: 3, name: "Exam 3", form: "TTTEEEMMMSSS")
-Exam.create(subject_id: 4, name: "Exam 4", form: "MESTMESTQQQQ")
+
+#TODO 
+=begin
 
 (1..20).each do |i|
   user_id = User.find(i).id

@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
+    @answer_sheets = @user.answer_sheets
   end
 
   def edit
