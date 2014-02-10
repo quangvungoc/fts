@@ -46,6 +46,6 @@ class AnswerSheetsController < ApplicationController
 
   private
     def answer_sheet_params
-      params.require(:answer_sheet).permit(:subject_id, :exam_id, answer_sheet_details_attributes:[:id, :answer, :question_id])
+      params.require(:answer_sheet).permit(:subject_id, :exam_id, answer_sheet_details_attributes:[:id, :answer_text, :answer_id, :question_id])
     end
 end

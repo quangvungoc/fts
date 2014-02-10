@@ -9,6 +9,7 @@ class AnswerSheet < ActiveRecord::Base
   has_many :questions, through: :answer_sheet_questions
 
   after_create :generate_questions, :generate_answer_sheet_details
+  before_save :sum_score
 
   accepts_nested_attributes_for :answer_sheet_details
 
@@ -18,8 +19,8 @@ class AnswerSheet < ActiveRecord::Base
     subject_id = self.exam.subject.id
     questions = Subject.find(subject_id).questions.group_by{ |q| q.question_type }
 
-    form = self.exam.form
-    form.each_char do |t|
+    form = self.exam.exam_details.map(&:question_type)
+    form.each do |t|
       index = Random.rand(questions[t].length)
       AnswerSheetQuestion.create answer_sheet_id: self.id, question_id: questions[t][index].id
       questions[t].delete_at(index)
@@ -29,6 +30,12 @@ class AnswerSheet < ActiveRecord::Base
   def generate_answer_sheet_details
     self.questions.each do |question|
       AnswerSheetDetail.create question_id: question.id, answer_sheet_id: self.id
+    end
+  end
+
+  def sum_score
+    if self.end_time.present? && self.end_time < Time.now
+      self.score = self.answer_sheet_details.reduce(0){|sum, details| sum + details.correct}
     end
   end
 end

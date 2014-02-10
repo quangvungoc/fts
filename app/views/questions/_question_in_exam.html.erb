@@ -1,15 +1,15 @@
 <%= builder.hidden_field :question_id, value: builder.object.question.id %>
 <% case builder.object.question.question_type %>
 <% when "T" then %>
-  <%= builder.text_field :answer %>
+  <%= builder.text_field :answer_text %>
 <% when "S" then %>
   <% answers = builder.object.question.answers %>
   <% answers.each do |answer| %> 
-    <%= builder.radio_button :answer, answer.id %><%= answer.content %><br>
+    <%= builder.radio_button :answer_id, answer.id %><%= answer.content %><br>
   <% end %>
 <% when "M" then %>
 
 <% when "E" then %>
-  <%= builder.text_area :answer %>
+  <%= builder.text_area :answer_text %>
 <% else "Something wrong!!!" %>
 <% end %>

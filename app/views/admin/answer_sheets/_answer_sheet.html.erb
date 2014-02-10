@@ -1,0 +1,13 @@
+<li>
+  <span class="subject_name"><%= answer_sheet.exam.subject.name %>.</span>
+  <span class="exam_name"> Exam: <%= answer_sheet.exam.name %></span>
+  <span class="timestamp">
+    Created at <%= answer_sheet.created_at %>.
+  </span>
+  <%= link_to "Mark", edit_admin_answer_sheet_path(answer_sheet) %>
+  <% if answer_sheet.end_time.nil? || answer_sheet.end_time > Time.now %>    
+    <%= answer_sheet.end_time.nil? ? 
+      "Not started yet" : 
+      ((answer_sheet.end_time-Time.now)/60).round.to_s + " minutes left." %>
+  <% end %>
+</li>
