@@ -16,7 +16,9 @@ ActiveRecord::Schema.define(version: 20140206085306) do
   create_table "answer_sheet_details", force: true do |t|
     t.integer "answer_sheet_id"
     t.integer "question_id"
-    t.text    "answer"
+    t.text    "answer_text"
+    t.integer "answer_id"
+    t.integer "correct", default: 0
   end
 
   create_table "answer_sheet_questions", force: true do |t|
@@ -32,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140206085306) do
   create_table "answer_sheets", force: true do |t|
     t.integer  "user_id"
     t.integer  "exam_id"
+    t.integer  "score"
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at"

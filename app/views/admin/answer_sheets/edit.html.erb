@@ -1,0 +1,46 @@
+<h1> Answer Sheet </h1>
+<h2> <%= @answer_sheet.exam.name %> in <%= @answer_sheet.exam.subject.name %> </h2>
+<h2> End time: <%= @answer_sheet.end_time.getlocal %> </h2>
+
+There are <%= @answer_sheet.questions.length %> questions. <br>
+Auto marking: <%= @auto_marking %>
+<%= form_for [:admin, @answer_sheet] do |f| %>
+  <ol class="questions">
+    <%= f.fields_for :answer_sheet_details do |builder| %>
+      <li> <%= builder.object.question.content %> </li>
+      <%= render partial: "questions/question_in_marking", 
+        :locals => {:builder => builder, :auto_marking => @auto_marking} %>
+    <% end %>  
+  </ol>
+
+<%= f.submit "Submit", class: "btn btn-large btn-primary", id: "__submit_answer_sheet" %>    
+<% end %>
+
+<div style="display:table;">
+  <div id="score">
+    Score: <span id="__score"> <%= @answer_sheet.score %></span>/<%= @answer_sheet.answer_sheet_details.length %>
+  </div>
+</div>
+
+<script>
+  var sum = 0;
+  $( document ).ready(function() {
+    $('input[type="checkbox"]').each(function(){
+      if ($(this).attr("checked") == "checked"){
+        sum ++;
+      }
+    });
+    $('#__score').prop("innerHTML",sum);
+
+    $('input[type="checkbox"]').each(function(){
+      $(this).click(function(){
+        if ($(this).is(':checked') == true){
+          sum ++;
+        } else {
+          sum --;
+        }
+        $('#__score').prop("innerHTML",sum); 
+      });
+    });
+  });
+</script>
