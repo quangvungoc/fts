@@ -9,7 +9,7 @@
   	<h6>
   	  Type: 
   	  <%= getTypeName(question.question_type) %>
-  	  <%= link_to "edit", '#' %>
+  	  <%= link_to "edit", edit_question_path(question) %>
   	  <%= link_to "delete", question, method: :delete, data: {confirm: "You sure?"} %>
   	</h6>
   </li>
