@@ -19,8 +19,8 @@ class AnswerSheet < ActiveRecord::Base
     subject_id = self.exam.subject.id
     questions = Subject.find(subject_id).questions.group_by{ |q| q.question_type }
 
-    form = self.exam.form
-    form.each_char do |t|
+    form = self.exam.exam_details.map(&:question_type)
+    form.each do |t|
       index = Random.rand(questions[t].length)
       AnswerSheetQuestion.create answer_sheet_id: self.id, question_id: questions[t][index].id
       questions[t].delete_at(index)
