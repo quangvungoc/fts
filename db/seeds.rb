@@ -14,14 +14,42 @@ subject_list.each do |name|
   Subject.create(name: name)
 end
 
-Exam.create(subject_id: 1, name: "MySQL 1", form: "SSSSSSTTTEEE", duration: 20)
-Exam.create(subject_id: 1, name: "MySQL 2", form: "SSSSSSSSSSSS", duration: 20)
-Exam.create(subject_id: 1, name: "MySQL 3", form: "EEE", duration: 60)
-Exam.create(subject_id: 1, name: "MySQL 4", form: "SSSSSSTTTEEE", duration: 50)
-Exam.create(subject_id: 2, name: "Exam 2", form: "SSSTTTEEESSS", duration: 20)
-Exam.create(subject_id: 3, name: "Exam 3", form: "TTTEEESSSSSS", duration: 20)
-Exam.create(subject_id: 4, name: "Exam 4", form: "SSSTTTTSSSS", duration: 20)
+Exam.create(subject_id: 1, name: "MySQL 1", duration: 20)
+Exam.create(subject_id: 1, name: "MySQL 2", duration: 20)
+Exam.create(subject_id: 1, name: "MySQL 3", duration: 60)
+Exam.create(subject_id: 1, name: "MySQL 4", duration: 50)
+Exam.create(subject_id: 2, name: "Exam 2", duration: 20)
+Exam.create(subject_id: 3, name: "Exam 3", duration: 20)
+Exam.create(subject_id: 4, name: "Exam 4", duration: 20)
 
+exam_id = 1
+(1..6).each do |i|
+  ExamDetail.create(exam_id: exam_id, question_type: "S")
+end
+(1..3).each do |i|
+  ExamDetail.create(exam_id: exam_id, question_type: "T")
+end
+(1..3).each do |i|
+  ExamDetail.create(exam_id: exam_id, question_type: "E")
+end
+
+exam_id = 2
+(1..20).each do |i|
+  ExamDetail.create(exam_id: exam_id, question_type: "S")
+end
+(1..3).each do |i|
+  ExamDetail.create(exam_id: exam_id, question_type: "T")
+end
+
+exam_id = 3
+(1..3).each do |i|
+  ExamDetail.create(exam_id: exam_id, question_type: "E")
+end
+
+exam_id = 4
+(1..25).each do |i|
+  ExamDetail.create(exam_id: exam_id, question_type: "S")
+end
 
 sample_text = %w(hi hello bye ohayou konnichiha konbanha arigatou goodnight goodmorning sayounara nippon english england vietnam vietnamese taiyo tsuki hi mizu moku kin go)
 

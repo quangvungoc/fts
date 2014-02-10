@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206085306) do
+ActiveRecord::Schema.define(version: 20140210083615) do
 
   create_table "answer_sheet_details", force: true do |t|
     t.integer "answer_sheet_id"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20140206085306) do
     t.integer "question_id"
     t.text    "content"
     t.integer "correct_answer", default: 0
+  end
+
+  create_table "exam_details", force: true do |t|
+    t.integer  "exam_id"
+    t.string   "question_type", limit: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "exams", force: true do |t|
