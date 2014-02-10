@@ -1,0 +1,26 @@
+<%= builder.hidden_field :question_id, value: builder.object.question.id %>
+<% case builder.object.question.question_type %>
+<% when "T" then %>
+  <%= builder.text_field :answer_text, readonly: true %>
+<% when "S" then %>
+  <% answers = builder.object.question.answers %>
+  <% answers.each do |answer| %> 
+    <%= builder.radio_button :answer_id, answer.id, readonly: true %><%= answer.content %><br>
+  <% end %>
+<% when "M" then %>
+<% when "E" then %>
+  <%= builder.text_area :answer_text, readonly: true %>
+<% else "Something wrong!!!" %>
+<% end %>
+<% if auto_marking %>
+  <% checked = false %>
+  <% if builder.object.question.question_type == "S" %>
+    <% if !builder.object.answer.nil? && builder.object.answer.correct_answer == 1 %>
+      <% checked = true %>
+    <% end %>
+  <% end %>
+  <%= builder.check_box :correct, checked: checked %> 
+<% else %>
+  <%= builder.check_box :correct %> 
+<% end %>
+<span> Answer correct </span>

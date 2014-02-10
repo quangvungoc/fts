@@ -11,4 +11,13 @@
       </h1>
     </section>
   </aside>
+
+  <h1 style="text-align:left;"> All Exams </h1>
+  <aside class="span8 offset4">
+    <% if @answer_sheets.any? %>
+      <ol class="answer_sheets">
+        <%= render @answer_sheets %>
+      </ol>
+    <% end %>
+  </aside>
 </div>

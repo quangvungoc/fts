@@ -9,6 +9,7 @@ class AnswerSheet < ActiveRecord::Base
   has_many :questions, through: :answer_sheet_questions
 
   after_create :generate_questions, :generate_answer_sheet_details
+  before_save :sum_score
 
   accepts_nested_attributes_for :answer_sheet_details
 
@@ -29,6 +30,12 @@ class AnswerSheet < ActiveRecord::Base
   def generate_answer_sheet_details
     self.questions.each do |question|
       AnswerSheetDetail.create question_id: question.id, answer_sheet_id: self.id
+    end
+  end
+
+  def sum_score
+    if self.end_time.present? && self.end_time < Time.now
+      self.score = self.answer_sheet_details.reduce(0){|sum, details| sum + details.correct}
     end
   end
 end
