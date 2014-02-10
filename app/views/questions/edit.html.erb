@@ -1,0 +1,57 @@
+<h1> edit question </h1>
+<div class="span8 offset2">
+  <%= form_for @question do |f| %>
+    Subject:
+    <%= f.collection_select :subject_id, Subject.all, :id, :name %>
+    Type: <br>
+    <%= getTypeName @question.question_type %><br><br>
+    Answer:
+    <% if @question.question_type == "S" %>
+      <%= f.fields_for :answers do |builder| %>
+        <div class="row">
+          <aside class="span0">
+            <%= builder.radio_button :correct_answer, 1%> 
+          </aside>
+          <aside class="span7">
+            <%= builder.text_field :content %>
+          </aside>
+        </div>
+      <% end %>
+    <% else %>
+      <%= f.fields_for :answers do |builder| %>
+        <%= builder.text_area :content %>
+      <% end %>
+    <% end %>
+    <br>
+    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
+
+<script>
+  $('input[type="radio"]').each(function(){
+    $(this).click(function() {
+      on_click_correct_answer();
+      $(this).prop("checked", true);
+      var id = $(this).attr("id")+"hidden";
+      if ($('#'+id).length) {
+        $('#'+id).attr({value: 1})
+      }
+    });
+  });
+
+  $('#question_question_type').click(function(){
+    onChangeType();
+  });
+  
+  function on_click_correct_answer() {
+    $('input[type="radio"]').each(function(){
+      $(this).removeAttr("checked");
+      var name = $(this).attr("name");
+      var id = $(this).attr("id")+"hidden";
+      if (!$('#'+id).length) {
+        $('<input>').attr({type: 'hidden', id: id, name: name, value: 0})
+        .appendTo( $(this));
+      }
+    });
+  }
+</script>

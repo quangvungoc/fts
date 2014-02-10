@@ -22,7 +22,13 @@ class QuestionsController < ApplicationController
   end
 
   def update
-
+    @question = Question.find params[:id]
+    if @question.update_attributes question_params
+      flash.now[:success] = "Question update successfully"
+      redirect_to @question.subject
+    else 
+      render 'edit'
+    end
   end
   
   def show
@@ -38,6 +44,7 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:subject_id, :question_type, :content, answers_attributes:[:content, :correct_answer])
+    params.require(:question).permit(:id, :subject_id, :question_type,
+      :content, answers_attributes:[:id, :content, :correct_answer])
   end
 end
