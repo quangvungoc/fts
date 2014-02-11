@@ -3,3 +3,5 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
 Fts::Application.initialize!
+
+require "active_record_extension"

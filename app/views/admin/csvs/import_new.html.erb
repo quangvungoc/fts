@@ -1,0 +1,6 @@
+<%= form_tag import_admin_csvs_path, multipart: true do %>
+  <%= select_tag :table, options_for_select(ActiveRecord::Base.connection.tables) %>
+
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

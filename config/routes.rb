@@ -17,6 +17,14 @@ Fts::Application.routes.draw do
 
   namespace :admin do
     resources :answer_sheets, only: [:show, :edit, :update, :destroy, :index]
+    resource :csvs do
+      collection do
+        get 'export_new'
+        post 'export'
+        get 'import_new'
+        post 'import'
+      end
+    end
   end
 
   root  'static_pages#home'
